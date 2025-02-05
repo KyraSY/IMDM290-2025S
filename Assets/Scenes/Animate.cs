@@ -25,16 +25,21 @@ public class Animate : MonoBehaviour
         }
 
         // Let there be spheres..
-        for (int i =0; i < numSphere; i++){
-            float r = 10f; // radius of the circle
-            // Draw primitive elements:
-            // https://docs.unity3d.com/6000.0/Documentation/ScriptReference/GameObject.CreatePrimitive.html
-            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere); 
-            // Initial positions of the spheres. make it in circle with r radius.
-            // https://www.cuemath.com/geometry/unit-circle/
-            initPos[i] = new Vector3(r * Mathf.Sin(i * 2 * Mathf.PI / numSphere), r * Mathf.Cos(i * 2 * Mathf.PI / numSphere), 10f);
-            spheres[i].transform.position = initPos[i];
+        spheres = new GameObject[numSphere];
+        initPos = new Vector3[numSphere];
 
+        float r = 2f;
+
+        for (int i = 0; i < numSphere; i++)
+        {
+            float t = (2 * Mathf.PI * i) / numSphere;
+
+            float x = r * (Mathf.Sqrt(2) * Mathf.Pow(Mathf.Sin(t), 3));
+            float y = r * (-Mathf.Pow(Mathf.Cos(t), 3) - Mathf.Pow(Mathf.Cos(t), 2) + 2 * Mathf.Cos(t));
+
+            initPos[i] = new Vector3(x, y, 0f);
+            spheres[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            spheres[i].transform.position = initPos[i];
             // Get the renderer of the spheres and assign colors.
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
             // hsv color space: https://en.wikipedia.org/wiki/HSL_and_HSV
@@ -52,7 +57,7 @@ public class Animate : MonoBehaviour
         for (int i =0; i < numSphere; i++){
             // position
             spheres[i].transform.position = initPos[i] 
-                                            + new Vector3(1f, 1f, 3f * numSphere/ (i+1f) * Mathf.Sin(time)) ;
+                                            + new Vector3(0f, 0f, 3f * Mathf.Sin(time)) ;
             // color
             Renderer sphereRenderer = spheres[i].GetComponent<Renderer>();
             float hue = (float)i / numSphere; // Hue cycles through 0 to 1
