@@ -1,6 +1,3 @@
+![heart](https://github.com/user-attachments/assets/925713b5-71a9-4b0a-ba39-fe074ee8c370)
 
-IMDM 290 
-
-2025 Spring
-
-Course Material 
+Kyra Yip Assignment 1: HEART
